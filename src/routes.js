@@ -15,6 +15,7 @@ routes.post("/tools", toolController.cadastarNovo); // filtrar ferramentas
 routes.delete("/tools/:id", toolController.removerFerramenta); // filtrar ferramentas
 //      usuario/auth - incrementar autenticação de usuario
 routes.post("/auth", usuarioController.criarUsuario);
+routes.get("/auth/login", usuarioController.login);
 
 
 // exportar o Routes por predefinição
