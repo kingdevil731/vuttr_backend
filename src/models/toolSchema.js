@@ -7,5 +7,5 @@ const toolSchema = new mongoose.Schema({
     description: String,
     tags: [String]
 });
-
+// exportar modelo na mongoose/mongodb com o nome de tabela/table Tools e o esquema toolSchema
 module.exports = mongoose.model('Tools', toolSchema);
