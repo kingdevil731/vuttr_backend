@@ -5,6 +5,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 // rotas
 const routes = require('./routes');
+// celebrate
+const {errors} = require('celebrate');
 //cors para permitir acesso fora da rede
 const cors = require('cors');
 // conexão com a base de dados hospedado na cloud / para deploy
@@ -20,5 +22,7 @@ app.use(express.json());
 app.use(cors());
 // usar rotas
 app.use(routes);
+// usar erros para deixar a aplicação saber como proceder com o erro
+app.use(errors());
 // escutar a porta 3000
-app.listen(PORT);
+app.listen(process.env.PORT || 2000);
