@@ -1,4 +1,5 @@
 const authSchema = require('../models/authSchema'); //schema para autentição
+const crypto = require('crypto'); // crypto
 
 module.exports = {
    /*
@@ -12,30 +13,35 @@ module.exports = {
 
     let res = await authSchema.findOne({usuario}); // verificar se ja existe o usuario
 
+    const token = crypto.randomBytes(12).toString('hex'); // criar um b randomizada/alertoria de 12 bytes que depois passamos para uma string o hexadecimal deste valor (b)
     // if para caso não existir executar a criação , caso sim retornar o usuario
     if(!res){
         res = await authSchema.create({
             usuario,
-            nome
+            nome,
+            token
         });
     } 
     response.status(201).json(res); // resposta em json com dados do usuario criado com o status 
    },
    // Login / verificar se existe o usuario na base de dados
    async login(request, response){
-       const {id} = request.body;
+       const {id} = request.body; // desestruturação para obter o id enviado no corpo do pedido
 
-       let res = await authSchema.findOne({ _id: id });
-       if(res === null || res == null || res.toString().length == 0 || res.toString().length === 0){
-        response.status(404).json({
-            code: 404,
-            status: "error authenticating, try again"});
-       } else {
-        response.status(200).json({
-               code: 200,
-               status: "autenticated",
-               _id: res._id
-           });
+       try {
+        let res = await authSchema.findOne({ _id: id }); // verificar na db se existe esse usuario com o id fornecido
+        // caso o usuario seja valido ele ira retornar o nome do usario e o token para ser guardados na localStorage 
+        response.status(202).json({
+                code: 202,
+                message: "autenticated",
+                token: res.token,
+                usuario: res.usuario
+        });
+       } catch (error) {
+        response.status(401).json({
+            code: 401,
+            message: "error a autenticar o usuario, peço que certifique-se que o id esteja correcto"});
        }
    }
+   // add forgot id
 }

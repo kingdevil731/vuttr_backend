@@ -26,12 +26,15 @@ module.exports = {
     async cadastarNovo(request, response){
         // desestruturação do body , para obter os valores que precisamos para cadastrar uma nova ferramenta
         const {title, link, description, tags} = request.body;
+         // desestruturação do headers , para obter o usuario e token
+        const {usuario, token} = request.headers;
         // TODO add a verification to see if the data to be inserted already exists  in the db
         //  criação da row/data na base de dados / db com as informações que tiramos passadas do body
         const res = await toolSchema.create({
             title,
             link,
             description,
+            usuario,
             tags
         });
         // enviarmos uma resposta para usuario com os dados criados da db
