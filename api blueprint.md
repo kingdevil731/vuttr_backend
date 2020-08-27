@@ -5,7 +5,7 @@ HOST: https://vuttr-back-end.herokuapp.com/
 Vuttr api é uma api simples que permite ao consumidor/usuario verificar ferramentas que são muito utéis para se lembrar.
 # Group Ferramentas
 Recursos relacionados a ferramentas na api.
-## Ferramentas [/tools]
+## Ferramenta [/tools]
 ### listar todas as ferramentas [GET]
 A requesição ira listar todas as ferramentas na base de dados, a resposta será em formato json
 + Response 200 (application/json)
@@ -86,7 +86,49 @@ Remover uma ferramenta da base de dados, passando um id unico da ferramenta no l
 
 + Response 204
 
-# Group Usuario
+# Group Usuarios
 Recursos relacionados a usuarios na api.
-Por adicionar, e adicionar login
-## Ferramenta Collection [/auth]
+
+## Usuario [/auth]
+
+### Criar um novo Usuario[POST]
+Podes criar um novo usuario usando esta acção. ele recebe um Objecto JSON contendo o usuario e nome.
++ usuario: (string) - o usuario que gostaria de ter
++ nome: (string) - o nome do usuario
+
++ Request  (application/json)
+
+            {
+                "usuario": "jd",
+                "nome": "doe john"
+            }
+            
++ Response 201  (application/json)
+
+            {
+                "_id": "5f475f40bcecca29ccb289c8",
+                "usuario": "jd",
+                "nome": "doe john",
+                "token": "a464b9c9aa2c4a0e79f6c7ac",
+                "__v": 0
+            }
+
+### Login do usuario [GET]
+envias no corpo do pedido o id unico do usuario.
++ id: (string) - o id unico do usuario retornado na criação de usuario
+
++ Request  (application/json)
+
+            {
+                "id": "5f475f40bcecca29ccb289c8"
+            }
+            
++ Response 202  (application/json)
+
+            {
+                "code": 202,
+                "message": "autenticated",
+                "token": "a464b9c9aa2c4a0e79f6c7ac",
+                "usuario": "jd"
+            }
+
