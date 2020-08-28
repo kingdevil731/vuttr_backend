@@ -14,7 +14,7 @@ const routes = Router();
 routes.get("/tools", toolController.listar); 
 
 // filtrar ferramentas + validação de string
-routes.get("/tool", celebrate({
+routes.get("/tools", celebrate({
     [Segments.QUERY]: Joi.object().keys({
         tag: Joi.required()
     })
