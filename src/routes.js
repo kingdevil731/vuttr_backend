@@ -10,14 +10,17 @@ const routes = Router();
 
 // rotas
 //      ferramentas
-routes.get("/tools", toolController.listar); // listar as ferramentas
+// listar as ferramentas
+routes.get("/tools", toolController.listar); 
 
+// filtrar ferramentas + validação de string
 routes.get("/tool", celebrate({
     [Segments.QUERY]: Joi.object().keys({
         tag: Joi.required()
     })
-}), toolController.filtrarConteudo); // filtrar ferramentas + validação de string
+}), toolController.filtrarConteudo); 
 
+// criar uma nova ferramenta + validação do body, bem como do headers
 routes.post("/tools", celebrate({
     [Segments.BODY]: Joi.object().keys({
      title: Joi.string().required(),
@@ -29,13 +32,14 @@ routes.post("/tools", celebrate({
         usuario: Joi.string().required(),
         token: Joi.string().required()
     }).unknown()
-}) ,toolController.cadastarNovo); // filtrar ferramentas + validação do body, bem como do headers
+}) ,toolController.cadastarNovo); 
 
+// apagar ferramenta pelo id
 routes.delete("/tools/:id", celebrate({
     [Segments.PARAMS]: Joi.object().keys({
         id: Joi.string().min(24).max(24).required(),
     })
-}) ,toolController.removerFerramenta); // filtrar ferramentas
+}) ,toolController.removerFerramenta);
 
 //      usuario/auth - incrementar autenticação de usuario
 routes.post("/auth", celebrate({
