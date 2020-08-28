@@ -10,7 +10,7 @@
     "mongoose": "^5.10.0"
   },
   "scripts": {
-    "start": "nodemon ./src/index.js",
+    "start": "node ./src/index.js",
     "start-test": "nodemon ./src/indextest.js",
     "test": "jest"
   },
