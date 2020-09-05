@@ -22,6 +22,17 @@ module.exports = {
 
         response.json(res);
     },
+     // listar ferramentas através do query, dando resposta ferramentas contendo o texto pedido
+     async filtrarConteudoTodo(request, response){
+        // desestruturação para obter o tag
+        const {all} = request.query;
+
+        const res = await toolSchema.find().or([{ title: all }, { description: all }, {tags: {
+            $in:all
+        }}]);;
+
+        response.json(res);
+    },
     // cadastrar uma nova rota
     async cadastarNovo(request, response){
         // desestruturação do body , para obter os valores que precisamos para cadastrar uma nova ferramenta
@@ -52,8 +63,5 @@ module.exports = {
         } else {
             response.status(404).json(res);
         }
-    },
-    async actualizarFerramenta(request, response){
-        // por criar a função
     }
 };
