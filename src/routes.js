@@ -20,6 +20,13 @@ routes.get("/tool", celebrate({
     })
 }), toolController.filtrarConteudo); 
 
+// filtrar ferramentas all + validação de string
+routes.get("/tools/all", celebrate({
+    [Segments.QUERY]: Joi.object().keys({
+        all: Joi.required()
+    })
+}), toolController.filtrarConteudoTodo); 
+
 // criar uma nova ferramenta + validação do body, bem como do headers
 routes.post("/tools", celebrate({
     [Segments.BODY]: Joi.object().keys({
@@ -49,7 +56,7 @@ routes.post("/auth", celebrate({
     })
 }) ,usuarioController.criarUsuario);
 
-routes.get("/auth/login", celebrate({
+routes.post("/auth/login", celebrate({
     [Segments.BODY]: Joi.object().keys({
         id: Joi.string().min(24).max(24).required()
     })
